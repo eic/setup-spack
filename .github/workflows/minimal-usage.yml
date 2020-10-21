@@ -9,6 +9,6 @@ jobs:
     - uses: eic/setup-spack@main
       with:
         spack_root: /cvmfs/eic.opensciencegrid.org/packages/spack/current
-    - name: Setup CernVM-FS
+    - name: Setup Spack
       run: |
         spack find
