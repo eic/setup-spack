@@ -1,0 +1,22 @@
+name: 'Spack'
+description: 'Load a Spack package tree'
+branding:
+  icon: 'package'
+inputs:
+  spack_root:
+    description: 'Root of Spack installation'
+    required: true
+  environment:
+    description: 'Spack environment to load'
+    required: false
+    default: ''
+runs:
+  using: "composite"
+  steps: 
+    - run: |
+      echo "SPACK_ROOT=$SPACK_ROOT" >> $GITHUB_ENV
+      echo "$SPACK_ROOT/bin" >> $GITHUB_PATH
+      [ -z "${{ inputs.environment }}" ] || spack env activate --sh ${{ inputs.environment }} >> $GITHUB_ENV
+    - shell: bash
+    - env:
+        SPACK_ROOT: ${{ inputs.spack_root }}
