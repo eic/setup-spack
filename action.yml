@@ -31,7 +31,7 @@ runs:
     - name: Load Spack environment path
       run: |
         test -z "${{ inputs.environment }}" || { $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
-        | sed -n 's/export //;/^PATH=/!d;s/^PATH=//;s/:/\n/g;s/\;$//' | while read line ; do echo $line >> $GITHUB_PATH ; done ; }
+        | sed 's/export //;/^PATH=/!d;s/^PATH=//;s/:/\n/g;s/\;$//' | while read line ; do echo $line >> $GITHUB_PATH ; done ; }
       shell: bash
       env:
         SPACK_ROOT: ${{ inputs.spack_root }}
