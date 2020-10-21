@@ -5,7 +5,8 @@ branding:
 inputs:
   spack_root:
     description: 'Root of Spack installation'
-    required: true
+    required: false
+    default: '/cvmfs/eic.opensciencegrid.org/packages/spack/current'
   environment:
     description: 'Spack environment to load'
     required: false
