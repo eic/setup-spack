@@ -23,10 +23,8 @@ runs:
         SPACK_ROOT: ${{ inputs.spack_root }}
     - name: Load Spack environment
       run: |
-        test -z "${{ inputs.environment }}" \ 
-        || $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
-        | sed 's/export //;s/\;$//;/^alias.*$/d' \
-        | while read line ; echo $line >> $GITHUB_ENV ; done
+        test -z "${{ inputs.environment }}" || { $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
+        | sed 's/export //;s/\;$//;/^alias.*$/d' | while read line ; do echo $line >> $GITHUB_ENV ; done ; }
       shell: bash
       env:
         SPACK_ROOT: ${{ inputs.spack_root }}
