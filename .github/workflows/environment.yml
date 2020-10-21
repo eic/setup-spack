@@ -13,3 +13,5 @@ jobs:
       run: |
         spack find
         env
+        cat $GITHUB_ENV
+        cat $GITHUB_PATH
