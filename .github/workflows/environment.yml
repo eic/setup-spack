@@ -12,3 +12,4 @@ jobs:
     - name: List packages in Spack
       run: |
         spack find
+        env
