@@ -20,12 +20,13 @@ runs:
       shell: bash
       env:
         SPACK_ROOT: ${{ inputs.spack_root }}
-    - run:
+    - name: Load Spack environment
+      if: ${{ inputs.environment != '' }}
+      run:
       - >
         $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }}
         | sed 's/export //;s/\;$//;/^alias.*$/d'
         | while read line ; echo $line >> $GITHUB_ENV ; done
-      if: "${{ inputs.environment != '' }}"
       shell: bash
       env:
         SPACK_ROOT: ${{ inputs.spack_root }}
