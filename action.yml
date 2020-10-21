@@ -14,9 +14,9 @@ runs:
   using: "composite"
   steps: 
     - run: |
-      echo "SPACK_ROOT=$SPACK_ROOT" >> $GITHUB_ENV
-      echo "$SPACK_ROOT/bin" >> $GITHUB_PATH
-      [ -z "${{ inputs.environment }}" ] || spack env activate --sh ${{ inputs.environment }} >> $GITHUB_ENV
+        echo "SPACK_ROOT=$SPACK_ROOT" >> $GITHUB_ENV
+        echo "$SPACK_ROOT/bin" >> $GITHUB_PATH
+        [ -z "${{ inputs.environment }}" ] || spack env activate --sh ${{ inputs.environment }} >> $GITHUB_ENV
     - shell: bash
     - env:
         SPACK_ROOT: ${{ inputs.spack_root }}
