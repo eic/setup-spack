@@ -17,8 +17,7 @@ runs:
     - run: |
         echo "SPACK_ROOT=$SPACK_ROOT" >> $GITHUB_ENV
         echo "$SPACK_ROOT/bin" >> $GITHUB_PATH
-        [ -z "${{ inputs.environment }}" ] || $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} | tee | sed 's/export //;s/\;$//;/^alias.*$/d'
->> $GITHUB_ENV
+        [ -z "${{ inputs.environment }}" ] || $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} | tee | sed 's/export //;s/\;$//;/^alias.*$/d' >> $GITHUB_ENV
       shell: bash
       env:
         SPACK_ROOT: ${{ inputs.spack_root }}
