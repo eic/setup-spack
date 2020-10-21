@@ -21,10 +21,17 @@ runs:
       shell: bash
       env:
         SPACK_ROOT: ${{ inputs.spack_root }}
-    - name: Load Spack environment
+    - name: Load Spack environment vars
       run: |
         test -z "${{ inputs.environment }}" || { $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
-        | sed 's/export //;s/\;$//;/^alias.*$/d' | while read line ; do echo $line >> $GITHUB_ENV ; done ; }
+        | sed 's/export //;s/\;$//;/^alias.*$/d;/^PATH=/d;s/\;$//' | while read line ; do echo $line >> $GITHUB_ENV ; done ; }
+      shell: bash
+      env:
+        SPACK_ROOT: ${{ inputs.spack_root }}
+    - name: Load Spack environment path
+      run: |
+        test -z "${{ inputs.environment }}" || { $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
+        | sed -n 's/export //;/^PATH=/!d;s/^PATH=//;s/:/\n/g;s/\;$//' | while read line ; do echo $line >> $GITHUB_PATH ; done ; }
       shell: bash
       env:
         SPACK_ROOT: ${{ inputs.spack_root }}
