@@ -14,7 +14,8 @@ inputs:
 runs:
   using: "composite"
   steps: 
-    - run: |
+    - name: Setup Spack variables
+      run: |
         echo "SPACK_ROOT=$SPACK_ROOT" >> $GITHUB_ENV
         echo "$SPACK_ROOT/bin" >> $GITHUB_PATH
       shell: bash
@@ -23,10 +24,10 @@ runs:
     - name: Load Spack environment
       if: ${{ inputs.environment != '' }}
       run:
-      - >
-        $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }}
-        | sed 's/export //;s/\;$//;/^alias.*$/d'
-        | while read line ; echo $line >> $GITHUB_ENV ; done
+        - >
+          $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }}
+          | sed 's/export //;s/\;$//;/^alias.*$/d'
+          | while read line ; echo $line >> $GITHUB_ENV ; done
       shell: bash
       env:
         SPACK_ROOT: ${{ inputs.spack_root }}
