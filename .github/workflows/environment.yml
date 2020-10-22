@@ -11,8 +11,15 @@ jobs:
         environment: 'eic'
     - name: List packages in Spack
       run: |
-        env
+        env | sort
         spack find
         cat $GITHUB_ENV
         cat $GITHUB_PATH
       shell: bash
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: variables
+        path: |
+          $GITHUB_ENV
+          $GITHUB_PATH
