@@ -11,7 +11,8 @@ jobs:
         environment: 'eic'
     - name: List packages in Spack
       run: |
-        spack find
         env
+        spack find
         cat $GITHUB_ENV
         cat $GITHUB_PATH
+      shell: bash
