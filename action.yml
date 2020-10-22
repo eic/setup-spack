@@ -24,12 +24,11 @@ runs:
     - name: Load Spack environment
       run: |
         test -z "${{ inputs.environment }}" || \
-        { \
-          $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
-            | sed 's/export //;s/\;$//;/^alias.*$/d;/^PATH=/d;s/\;$//' \
-            | while read line ; do echo $line >> $GITHUB_ENV ; done ; \
-          $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
-            | sed 's/export //;/^PATH=/!d;s/^PATH=//;s/:/\n/g;s/\;$//' \
-            | while read line ; do echo $line >> $GITHUB_PATH ; done ; \
-        }
+        $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
+        | sed 's/export //;/^PATH=/d;s/\;$//;/^alias.*$/d' \
+        | while read line ; do echo $line | tee >> $GITHUB_ENV ; done ; \
+        test -z "${{ inputs.environment }}" || \
+        $SPACK_ROOT/bin/spack env activate --sh ${{ inputs.environment }} \
+        | sed 's/export //;/^PATH=/!d;s/\;$//;s/^PATH=//;s/:/\n/g' \
+        | while read line ; do echo $line | tee >> $GITHUB_PATH ; done ;
       shell: bash
