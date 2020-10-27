@@ -2,6 +2,7 @@ name: 'Spack'
 description: 'Load a Spack package tree'
 branding:
   icon: 'package'
+  color: 'blue'
 inputs:
   spack_root:
     description: 'Root of Spack installation'
