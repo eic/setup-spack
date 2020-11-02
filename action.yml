@@ -1,4 +1,4 @@
-name: 'Spack'
+name: 'Spack on cvmfs'
 description: 'Load a Spack package tree'
 branding:
   icon: 'package'
